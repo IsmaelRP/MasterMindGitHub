@@ -120,15 +120,351 @@ public class Maquina extends Jugador {
 			System.out.printf("%s ", combSecreta.combinacion[i].color);
 		}
 	}
-	
+
 	void dibujarCombinacionRespuesta() {
 		for (int i = 0; i < modo.casillas; i++) {
 			System.out.printf("%s ", combRespuesta.combinacion[i].color);
 		}
 	}
-	
 
+	@SuppressWarnings("unchecked")
 	public Combinacion IA(Tablero tablero) {
+		Combinacion comb = new Combinacion(modo);
+		int negro = 0;
+		int rojo = 0;
+		int verde = 0;
+		int amarillo = 0;
+		int azul = 0;
+		int morado = 0;
+		int celeste = 0;
+		int blanco = 0;
+		int verdeclaro = 0;
+		int rosa = 0;
+		String auxRand;
+		boolean fasePrimera = true;
+		boolean bandera = true;
+		int aux1;
+		int aux2;
+
+		ArrayList lista = new ArrayList<String>();
+
+		boolean faseSegunda = true;
+		boolean noContar = true;
+		int auxContador = 0;
+		int totalColores = 0;
+		String colorNoEsta = "";
+
+		if (tablero.getTablero().size() == 0) {
+			auxRand = generarColorRandom();
+			// if (auxRand.equals(Colores.NEGRO + " " + Colores.RESET)) {
+			// negro++;
+			// lista.add(Colores.NEGRO + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.ROJO + " " + Colores.RESET)) {
+			// rojo++;
+			// lista.add(Colores.ROJO + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.VERDE + " " + Colores.RESET)) {
+			// verde++;
+			// lista.add(Colores.VERDE + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.AMARILLO + " " + Colores.RESET)) {
+			// amarillo++;
+			// lista.add(Colores.AMARILLO + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.AZUL + " " + Colores.RESET)) {
+			// azul++;
+			// lista.add(Colores.AZUL + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.MORADO + " " + Colores.RESET)) {
+			// morado++;
+			// lista.add(Colores.MORADO + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.CELESTE + " " + Colores.RESET)) {
+			// celeste++;
+			// lista.add(Colores.CELESTE + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.BLANCO + " " + Colores.RESET)) {
+			// blanco++;
+			// lista.add(Colores.BLANCO + " " + Colores.RESET);
+			// } else if (auxRand.equals(Colores.VERDECLARO + " " + Colores.RESET)) {
+			// verdeclaro++;
+			// lista.add(Colores.VERDECLARO + " " + Colores.RESET);
+			// } else {
+			// rosa++;
+			// lista.add(Colores.ROSA + " " + Colores.RESET);
+			// }
+
+			for (int o = 0; o < comb.combinacion.length; o++) {
+				comb.combinacion[o] = new Casilla(auxRand);
+			}
+
+		} else {
+
+			for (int i = 0; i < tablero.getTablero().size(); i++) {
+				// AQUI SE COMPRUEBA QUE TODAVÍA ESTAMOS EN LA PRIMERA FASE, EN LA QUE TODOS LOS
+				// COLORES SON IGUALES
+				for (int h = 0; h < modo.casillas; h++) {
+
+					if (tablero.getTablero().get(i).combinacion[0].color != tablero.getTablero()
+							.get(i).combinacion[h].color) {
+						fasePrimera = false;
+					}
+				}
+				if (fasePrimera) {
+					if (tablero.getTablero().get(i).combinacion[0].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									negro++;
+								}
+							}
+
+						}
+
+						lista.add(Colores.NEGRO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.ROJO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									rojo++;
+								}
+							}
+						}
+
+						lista.add(Colores.ROJO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.VERDE + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									verde++;
+								}
+							}
+						}
+
+						lista.add(Colores.VERDE + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									amarillo++;
+								}
+							}
+						}
+
+						lista.add(Colores.AMARILLO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.AZUL + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									azul++;
+								}
+							}
+						}
+
+						lista.add(Colores.AZUL + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.MORADO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									morado++;
+								}
+							}
+						}
+
+						lista.add(Colores.MORADO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									celeste++;
+								}
+							}
+						}
+
+						lista.add(Colores.CELESTE + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									blanco++;
+								}
+							}
+						}
+
+						lista.add(Colores.BLANCO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									verdeclaro++;
+								}
+							}
+						}
+
+						lista.add(Colores.VERDECLARO + "  " + Colores.RESET);
+					} else if (tablero.getTablero().get(i).combinacion[0].color
+							.equals(Colores.ROSA + "  " + Colores.RESET)) {
+						if (tablero.getPista().get(i).combinacion[0].color
+								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+							for (int u = 0; u < modo.casillas; u++) {
+								if (tablero.getPista().get(i).combinacion[u].color
+										.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+									rosa++;
+								}
+							}
+						}
+
+						lista.add(Colores.ROSA + "  " + Colores.RESET);
+					}
+
+					// aux = i;
+				}
+
+			}
+
+			if (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro
+					+ rosa == modo.casillas) {
+				fasePrimera = false;
+			}
+
+			if (!fasePrimera) {
+
+				for (int y = 0; y < modo.casillas; y++) {
+					do {
+						aux1 = generarPosicionRandom() - 1;
+					} while (comb.combinacion[aux1] != null);
+
+					aux2 = (int) (Math.random() * modo.colores) + 1;
+
+					switch (aux2) {
+					case 1:
+						if (negro > 0) {
+							negro--;
+							comb.combinacion[aux1] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 2:
+						if (rojo > 0) {
+							rojo--;
+							comb.combinacion[aux1] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 3:
+						if (verde > 0) {
+							verde--;
+							comb.combinacion[aux1] = new Casilla(Colores.VERDE + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 4:
+						if (amarillo > 0) {
+							amarillo--;
+							comb.combinacion[aux1] = new Casilla(Colores.AMARILLO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 5:
+						if (azul > 0) {
+							azul--;
+							comb.combinacion[aux1] = new Casilla(Colores.AZUL + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 6:
+						if (morado > 0) {
+							morado--;
+							comb.combinacion[aux1] = new Casilla(Colores.MORADO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 7:
+						if (celeste > 0) {
+							celeste--;
+							comb.combinacion[aux1] = new Casilla(Colores.CELESTE + "  " + Colores.RESET);
+						} else {
+							y--;
+
+						}
+						break;
+					case 8:
+						if (blanco > 0) {
+							blanco--;
+							comb.combinacion[aux1] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 9:
+						if (verdeclaro > 0) {
+							verdeclaro--;
+							comb.combinacion[aux1] = new Casilla(Colores.VERDECLARO + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					case 10:
+						if (rosa > 0) {
+							rosa--;
+							comb.combinacion[aux1] = new Casilla(Colores.ROSA + "  " + Colores.RESET);
+						} else {
+							y--;
+						}
+						break;
+					}
+				}
+
+				/*
+				 * do { bandera = false;
+				 * 
+				 * auxRand = generarColorRandom(); if (auxRand.equals(Colores.NEGRO + "  " +
+				 * Colores.RESET) && negro > 0) { comb.combinacion[generarPosicionRandom()] =
+				 * new Casilla(Colores.NEGRO + "  " + Colores.RESET); // HACER ESTO PARA CADA
+				 * COLOR } } while (bandera);
+				 */
+			} else {
+				do {
+					auxRand = generarColorRandom();
+				} while (lista.contains(auxRand));
+
+				for (int k = 0; k < modo.casillas; k++) {
+					comb.combinacion[k] = new Casilla(auxRand);
+				}
+
+			}
+
+		}
+		return comb;
+	}
+
+	public Combinacion IAAntigua(Tablero tablero) {
 		Combinacion comb = new Combinacion(modo);
 
 		int negro = 0;
@@ -160,6 +496,7 @@ public class Maquina extends Jugador {
 		} else {
 			// EN CASO QUE NO ESTÉ VACIA, SE RELLENAN LAS VARIABLES SEGÚN LOS COLORES QUE
 			// HEMOS ENCONTRADO
+
 			for (int i = 0; i < tablero.getTablero().size(); i++) {
 				fasePrimera = true;
 				faseSegunda = true;
@@ -172,83 +509,84 @@ public class Maquina extends Jugador {
 					}
 				}
 
-				// PARA LA FASE PRIMERA SE AVERIGÜA CUALES SON LOS COLORES QUE HAY EN LA COMBINACIÓN
+				// PARA LA FASE PRIMERA SE AVERIGÜA CUALES SON LOS COLORES QUE HAY EN LA
+				// COMBINACIÓN
 				// Y CUÁNTOS DE ELLOS
 				if (fasePrimera) {
 
-					if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET) ) {
+					if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								negro++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.ROJO + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.ROJO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								rojo++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.VERDE + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.VERDE + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								verde++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.AMARILLO + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								amarillo++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.AZUL + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.AZUL + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								azul++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.MORADO + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.MORADO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								morado++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.CELESTE + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.CELESTE + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								celeste++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.BLANCO + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.BLANCO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								blanco++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.VERDECLARO + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
 								verdeclaro++;
 							}
 						}
-					} else if (tablero.getTablero().get(i).combinacion[i].color.equals(Colores.ROSA + "  "
-							+ Colores.RESET)) {
+					} else if (tablero.getTablero().get(i).combinacion[i].color
+							.equals(Colores.ROSA + "  " + Colores.RESET)) {
 						for (int l = 0; l < modo.casillas; l++) {
 							if (tablero.getPista().get(i).combinacion[l].color == Colores.NEGRO + "  "
 									+ Colores.RESET) {
@@ -261,9 +599,7 @@ public class Maquina extends Jugador {
 					if (noContar) {
 						totalColores = negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro
 								+ rosa;
-						
-						
-						
+
 						if (totalColores == modo.casillas) {
 							noContar = false;
 							if (negro == 0) {
@@ -287,16 +623,14 @@ public class Maquina extends Jugador {
 							} else if (rosa == 0) {
 								colorNoEsta = Colores.ROSA + "  " + Colores.RESET;
 							}
-						}else {
+						} else {
 							auxRand = generarColorRandom();
-							for (int k=0;k<modo.casillas;k++) {
+							for (int k = 0; k < modo.casillas; k++) {
 								comb.combinacion[k] = new Casilla(auxRand);
 							}
 						}
 					}
-					
-					
-					
+
 				} else if (faseSegunda) { // AQUI YA SE SABE CUÁNTOS COLORES HAY DE CADA TIPO Y SE PUEDEN HABER GENERADO
 											// ALGUNAS COMBINACIONES
 					auxContador = 0;

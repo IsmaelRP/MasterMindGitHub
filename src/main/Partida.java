@@ -79,7 +79,7 @@ public class Partida {
 				// secreta que deberá de adivinar el usuario (jugador1)
 			} else {
 				System.out.printf("\nElija su combinación secreta jugador 1\n");
-				partida.jugador1.combSecreta = ((Usuario) partida.jugador1).elegirCombinacionSinRepet(modo);
+				partida.jugador1.combSecreta = ((Usuario) partida.jugador1).elegirCombinacionSinRepet();
 			}
 			do {
 				if (opcion == 1) { // APARTADO DEL USUARIO EN EL MODO FACIL
@@ -161,7 +161,7 @@ public class Partida {
 					}
 
 				}
-			} while (partida.jugador1.intentos != 0 || partida.jugador2.intentos != 0 && fin);
+			} while ((partida.jugador1.intentos != 0 && partida.jugador2.intentos != 0) && fin);
 
 		} else if (modo == Modos.MEDIO) {
 
@@ -211,14 +211,13 @@ public class Partida {
 				// AQUI EMPIEZA JUGANDO LA MÁQUINA
 				// METODO DE LA IA QUE GENERE UNA COMBINACION A PARTIR DE LA PISTA DEL USUARIO
 				// AL PRINCIPIO SERA ALEATORIO PORQUE NO HABRÁ PISTA
-				System.out.printf("Presione ENTER para el turno de la máquina\n\n");
-				Teclado.pedirCadena();
+				//System.out.printf("Presione ENTER para el turno de la máquina\n\n");
+				//Teclado.pedirCadena();
 				partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
 
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combRespuesta)) {
 
-					partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,
-							partida.jugador1.generarPista(partida.jugador2));
+					partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,partida.jugador1.generarPista(partida.jugador2));
 
 					partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
 
@@ -261,7 +260,67 @@ public class Partida {
 			// CUANDO ALGUNO DE LOS DOS GANE
 
 		} else if (modo == Modos.DIFICIL) {
-			System.out.printf("En proceso");
+			
+			partida.jugador1.combSecreta = partida.jugador1.generarCombinacion();
+			System.out.printf("La combinación secreta de la máquina 1 es:\n");
+			partida.jugador1.dibujarCombinacionSecreta();
+			
+			System.out.printf("\n\n");
+			
+			partida.jugador2.combSecreta = partida.jugador2.generarCombinacion();
+			System.out.printf("La combinación secreta de la máquina 2 es:\n");
+			partida.jugador2.dibujarCombinacionSecreta();
+			
+			
+			do {
+				//	AQUI JUEGA MÁQUINA 1
+				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.intentos+1);
+				Teclado.pedirCadena();
+				partida.jugador1.combRespuesta = ((Maquina) partida.jugador1).IA(partida.tablero1);
+				
+				partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,partida.jugador2.generarPista(partida.jugador1));
+
+				partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+
+				
+				
+				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combSecreta)) {
+					fin1 = false;
+					System.out.printf("La máquina 1 ha acertado la combinación");
+				}else {
+					partida.jugador1.intentos ++;
+				}
+				
+				
+				//	AQUI JUEGA MÁQUINA 2
+				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.intentos+1);
+				Teclado.pedirCadena();
+				partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
+				
+				partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,partida.jugador1.generarPista(partida.jugador2));
+
+				partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+				
+				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combSecreta)) {
+					fin2 = false;
+					System.out.printf("La máquina 2 ha acertado la combinación");
+				}else {
+					partida.jugador2.intentos ++;
+				}
+				
+				
+				if (!fin1 && !fin2) {
+					System.out.printf("Habeis empatado");
+				}else if (!fin1) {
+					System.out.printf("Ha ganado la máquina 1");
+				}else if (!fin2) {
+					System.out.printf("Ha ganado la máquina 2");
+				}else {
+					System.out.printf("Llevan %d intentos\n\n",partida.jugador1.intentos);
+				}
+				
+			}while(fin1 && fin2);
+			
 		} else {
 			System.out.printf(
 					"\n\nINSTRUCCIONES:\n\nLas bolitas %s significan que un color está en la posición adecuada\nLas bolitas %s significan que el color es correcto pero no su posición\nLas bolitas %s significan que el color no se encuentra en la combinación\n\n",

@@ -269,7 +269,7 @@ public class Usuario extends Jugador {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Combinacion elegirCombinacionSinRepet(Modos modo) {
+	public Combinacion elegirCombinacionSinRepet() {
 		Combinacion combSecreta = new Combinacion(modo);
 		ArrayList lista = new ArrayList<String>();
 		boolean repetir = true;
@@ -507,7 +507,7 @@ public class Usuario extends Jugador {
 	@Override
 	Combinacion generarCombinacion() {
 
-		return this.elegirCombinacionSinRepet(modo);
+		return elegirCombinacionSinRepet();
 	}
 
 	void dibujarCombinacionSecreta() {
