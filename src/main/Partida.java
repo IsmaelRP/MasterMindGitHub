@@ -276,8 +276,12 @@ public class Partida {
 				//	AQUI JUEGA MÁQUINA 1
 				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.intentos+1);
 				//Teclado.pedirCadena();
-				if (partida.jugador1.intentos >= 8) {
-					Teclado.pedirCadena();
+				//if (partida.jugador1.intentos >= 8) {
+				//	Teclado.pedirCadena();
+				//}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
 				}
 				partida.jugador1.combRespuesta = ((Maquina) partida.jugador1).IA(partida.tablero1);
 				
@@ -298,8 +302,12 @@ public class Partida {
 				//	AQUI JUEGA MÁQUINA 2
 				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.intentos+1);
 				//Teclado.pedirCadena();
-				if (partida.jugador1.intentos >= 8) {
+				if (partida.jugador1.intentos >= 10) {
 					Teclado.pedirCadena();
+				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
 				}
 				partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
 				

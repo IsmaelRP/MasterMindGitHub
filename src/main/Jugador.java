@@ -1,7 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class Jugador {
 
@@ -42,61 +41,216 @@ public abstract class Jugador {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	Combinacion generarPista(Jugador contrincante) {
 
+		Casilla[] pintado = new Casilla[modo.casillas];
 		int i = 0, negro = 0, rojo = 0;
-		ArrayList<Casilla> lista1 = new ArrayList();
-		ArrayList<Casilla> lista2 = new ArrayList();
+		Casilla[] respuesta = new Casilla[modo.casillas];
+		ArrayList<String> lista1 = new ArrayList();
+		ArrayList<String> lista2 = new ArrayList();
+
 		Combinacion comb = new Combinacion(modo);
-		HashMap<Casilla, Integer> mapa = new HashMap<>();
+		int colores1[] = new int[modo.colores];
+		int colores2[] = new int[modo.colores];
+
+
+		// for (i=0;i<modo.colores;i++) {
+		// colores[i] ++;
+		// }
+
+		for (i = 0; i < contrincante.combRespuesta.combinacion.length; i++) {
+			if (!lista1.contains(contrincante.combRespuesta.combinacion[i].color)) {
+				lista1.add(contrincante.combRespuesta.combinacion[i].color);
+				if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					colores1[0] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.ROJO + "  " + Colores.RESET)) {
+					colores1[1] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.VERDE + "  " + Colores.RESET)) {
+					colores1[2] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+					colores1[3] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.AZUL + "  " + Colores.RESET)) {
+					colores1[4] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.MORADO + "  " + Colores.RESET)) {
+					colores1[5] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+					colores1[6] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+					colores1[7] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+					colores1[8] ++;
+				}else if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.ROSA + "  " + Colores.RESET)) {
+					colores1[9] ++;
+				}
+			} else {
+				if (contrincante.combRespuesta.combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					colores1[0]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.ROJO + "  " + Colores.RESET)) {
+					colores1[1]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.VERDE + "  " + Colores.RESET)) {
+					colores1[2]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+					colores1[3]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.AZUL + "  " + Colores.RESET)) {
+					colores1[4]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.MORADO + "  " + Colores.RESET)) {
+					colores1[5]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+					colores1[6]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+					colores1[7]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+					colores1[8]++;
+				} else if (contrincante.combRespuesta.combinacion[i].color
+						.equals(Colores.ROSA + "  " + Colores.RESET)) {
+					colores1[9]++;
+				}
+			}
+
+		}
+
+		for (i = 0; i < combSecreta.combinacion.length; i++) {
+			if (!lista2.contains(combSecreta.combinacion[i].color)) {
+				lista2.add(combSecreta.combinacion[i].color);
+				if (combSecreta.combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					colores2[0] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.ROJO + "  " + Colores.RESET)) {
+					colores2[1] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.VERDE + "  " + Colores.RESET)) {
+					colores2[2] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+					colores2[3] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.AZUL + "  " + Colores.RESET)) {
+					colores2[4] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.MORADO + "  " + Colores.RESET)) {
+					colores2[5] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+					colores2[6] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+					colores2[7] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+					colores2[8] ++;
+				}else if (combSecreta.combinacion[i].color.equals(Colores.ROSA + "  " + Colores.RESET)) {
+					colores2[9] ++;
+				}
+			} else {
+				if (combSecreta.combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					colores2[0]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.ROJO + "  " + Colores.RESET)) {
+					colores2[1]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.VERDE + "  " + Colores.RESET)) {
+					colores2[2]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+					colores2[3]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.AZUL + "  " + Colores.RESET)) {
+					colores2[4]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.MORADO + "  " + Colores.RESET)) {
+					colores2[5]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+					colores2[6]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+					colores2[7]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+					colores2[8]++;
+				} else if (combSecreta.combinacion[i].color.equals(Colores.ROSA + "  " + Colores.RESET)) {
+					colores2[9]++;
+				}
+			}
+
+		}
 
 		for (i = 0; i < modo.casillas; i++) {
 			if (contrincante.combRespuesta.combinacion[i].equals(combSecreta.combinacion[i])) {
 				negro++;
 			} else {
-				lista1.add(combSecreta.combinacion[i]);
-				lista2.add(contrincante.combRespuesta.combinacion[i]);
-			}
-		}
 
-		i = 0;
-		while (i < lista1.size()) {
-			if (mapa.containsKey(lista1.get(i))) {
-				mapa.put(lista1.get(i), mapa.get(lista1.get(i)).intValue() + 1);
-			} else {
-				mapa.put(lista1.get(i), 1);
-			}
-			i++;
-		}
-
-		i = 0;
-		while (i < lista2.size()) {
-			if (mapa.containsKey(lista2.get(i))) {
-				if (mapa.get(lista2.get(i)).intValue() == 0) {
-					mapa.remove(lista2.get(i));
-				} else {
-					rojo++;
-					mapa.put(lista2.get(i), mapa.get(lista2.get(i)).intValue() - 1);
+				if (combSecreta.combinacion[i].color.equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					if (colores1[0] > 0 && colores2[0] > 0) {
+						colores1[0]--;
+						colores2[0]--;
+						rojo++;
+					}					
+				} else if (combSecreta.combinacion[i].color.equals(Colores.ROJO + "  " + Colores.RESET)) {
+					if (colores1[1] > 0 && colores2[1] > 0) {
+						colores1[1]--;
+						colores2[1]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.VERDE + "  " + Colores.RESET)) {
+					if (colores1[2] > 0 && colores2[2] > 0) {
+						colores1[2]--;
+						colores2[2]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.AMARILLO + "  " + Colores.RESET)) {
+					if (colores1[3] > 0 && colores2[3] > 0) {
+						colores1[3]--;
+						colores2[3]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.AZUL + "  " + Colores.RESET)) {
+					if (colores1[4] > 0 && colores2[4] > 0) {
+						colores1[4]--;
+						colores2[4]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.MORADO + "  " + Colores.RESET)) {
+					if (colores1[5] > 0 && colores2[5] > 0) {
+						colores1[5]--;
+						colores2[5]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.CELESTE + "  " + Colores.RESET)) {
+					if (colores1[6] > 0 && colores2[6] > 0) {
+						colores1[6]--;
+						colores2[6]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.BLANCO + "  " + Colores.RESET)) {
+					if (colores1[7] > 0 && colores2[7] > 0) {
+						colores1[7]--;
+						colores2[7]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.VERDECLARO + "  " + Colores.RESET)) {
+					if (colores1[8] > 0 && colores2[8] > 0) {
+						colores1[8]--;
+						colores2[8]--;
+						rojo++;
+					}
+				} else if (combSecreta.combinacion[i].color.equals(Colores.ROSA + "  " + Colores.RESET)) {
+					if (colores1[9] > 0 && colores2[9] > 0) {
+						colores1[9]--;
+						colores2[9]--;
+						rojo++;
+					}
 				}
-			} 
-			i++;
+			}
+		}
+		// rojo += negro;
+		// blanco += rojo;
+
+		for (i = 0; i < negro; i++) {
+			respuesta[i] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
+		}
+		for (; i < rojo; i++) {
+			respuesta[i] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+		}
+		for (; i < modo.casillas; i++) {
+			respuesta[i] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
 		}
 
-		
-		i = 0;
-		while (i<modo.casillas) {
-			
-			if (negro > 0) {
-				comb.combinacion[i] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
-				negro --;
-			}else if (rojo > 0) {
-				comb.combinacion[i] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
-				rojo --;
-			}else {
-				comb.combinacion[i] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
-			}
-			
-			i++;
+		for (i = 0; i < modo.casillas; i++) {
+			pintado[i] = respuesta[i];
 		}
-		
+		comb.combinacion = pintado;
+
 		return comb;
 	}
 
