@@ -2,20 +2,50 @@ package main;
 
 import main.Teclado.enummaximominimo;
 
+/**
+ * Esta clase almacena 2 objetos Jugador, 2 objetos Tablero y un enum Modos, es la clase principal del programa
+ * 
+ * @author Ismael Raqi Picardo
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Partida {
 
 	@SuppressWarnings("unused")
+	/**
+	 * Almacena un enum Modos
+	 */
 	private Modos modo;
+	/**
+	 * Almacena un objeto Jugador para el jugador 1
+	 */
 	private Jugador jugador1;
+	/**
+	 * Almacena un objeto Tablero para el jugador 1
+	 */
 	private Tablero tablero1;
 
+	/**
+	 * Almacena un objeto Jugador para el jugador 2
+	 */
 	private Jugador jugador2;
+	/**
+	 * Almacena un objeto Tablero para el jugador 2
+	 */
 	private Tablero tablero2;
 
+	/**
+	 * Construye un nuevo objeto Partida totalmente vacío que sirve de auxiliar
+	 */
 	protected Partida() {
-
 	}
 
+	/**
+	 * Construye un nuevo objeto Partida que inicializa los objetos Jugador y Tablero
+	 * @param modo  El modo que determinará si se inicializan los objetos Jugador, en Maquina, o Usuario
+	 * 
+	 */
 	protected Partida(Modos modo) {
 		this.modo = modo;
 		if (modo == Modos.FACIL) {
@@ -40,6 +70,9 @@ public class Partida {
 		}
 	}
 
+	/**
+	 * Método principal del programa, donde se ejecutará todo el programa (juego MasterMind) desde el principio hasta el final
+	 */
 	protected void inicioPartida() {
 		int opcion;
 		Modos modo;
@@ -48,8 +81,20 @@ public class Partida {
 		boolean fin1 = true;
 		boolean fin2 = true;
 
-		System.out.printf("Bienvenido a MasterMind");
-		System.out.printf("\n\n1.Fácil\n2.Medio\n3.Difícil\n4.Instrucciones\n");
+		System.out.printf("\r\n" + 
+				".___  ___.      ___           _______.___________._______ .______     .___  ___.  __  .__   __.  _______  \r\n" + 
+				"|   \\/   |     /   \\         /       |           |   ____||   _  \\    |   \\/   | |  | |  \\ |  | |       \\ \r\n" + 
+				"|  \\  /  |    /  ^  \\       |   (----`---|  |----|  |__   |  |_)  |   |  \\  /  | |  | |   \\|  | |  .--.  |\r\n" + 
+				"|  |\\/|  |   /  /_\\  \\       \\   \\       |  |    |   __|  |      /    |  |\\/|  | |  | |  . `  | |  |  |  |\r\n" + 
+				"|  |  |  |  /  _____  \\  .----)   |      |  |    |  |____ |  |\\  \\----|  |  |  | |  | |  |\\   | |  '--'  |\r\n" + 
+				"|__|  |__| /__/     \\__\\ |_______/       |__|    |_______|| _| `._____|__|  |__| |__| |__| \\__| |_______/ \r\n" + 
+				"                                                                                                          \r\n\n\n" + 
+				" 									 ___        ___           _ \r\n" + 
+				" 									| _ )_  _  | _ \\__ _ __ _(_)\r\n" + 
+				"					 				| _ | || | |   / _` / _` | |\r\n" + 
+				"					 				|___/\\_, | |_|_\\__,_\\__, |_|\r\n" + 
+				"					 		          	     |__/              |_|");
+		System.out.printf("\n\n\n\nElija dificultad:\n\n1.Fácil\n2.Medio\n3.Difícil\n4.Instrucciones\n");
 		opcion = Teclado.valores(1, 4, enummaximominimo.AMBOS_INCLUIDOS);
 
 		switch (opcion) {
@@ -92,7 +137,7 @@ public class Partida {
 						partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 								partida.jugador2.generarPista(partida.jugador1));
 
-						partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+						partida.tablero1.dibujarTablero(partida.tablero1);
 
 						System.out.printf("Has acertado la combinación: ");
 						fin = false;
@@ -105,13 +150,13 @@ public class Partida {
 
 						if (partida.jugador1.getIntentos() != 0) {
 
-							partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+							partida.tablero1.dibujarTablero(partida.tablero1);
 
 							System.out.printf("Has fallado, te quedan %d intentos", partida.jugador1.getIntentos());
 							// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 							// BIEN LAS COMBINACIONES
 						} else {
-							partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+							partida.tablero1.dibujarTablero(partida.tablero1);
 
 							System.out.printf("Has perdido, la combinación era: ");
 							((Maquina) partida.jugador2).dibujarCombinacionSecreta();
@@ -126,14 +171,14 @@ public class Partida {
 					
 					System.out.printf("El actual intento de la máquina es:  ");
 					((Maquina) partida.jugador2).dibujarCombinacionRespuesta();
-					((Usuario) partida.jugador1).ponerPinchitos(partida.jugador1.generarPista(partida.jugador2));
+					((Usuario) partida.jugador1).elegirPista(partida.jugador1.generarPista(partida.jugador2));
 
 					if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombRespuesta())) {
 
 						partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),
 								jugador1.generarPista(partida.jugador2));
 
-						partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+						partida.tablero2.dibujarTablero(partida.tablero2);
 
 						System.out.printf("La máquina ha acertado la combinación: ");
 						fin = false;
@@ -146,13 +191,13 @@ public class Partida {
 
 						if (partida.jugador2.getIntentos() != 0) {
 
-							partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+							partida.tablero2.dibujarTablero(partida.tablero2);
 
 							System.out.printf("La máquina fallado, le quedan %d intentos", partida.jugador2.getIntentos());
 							// ((Maquina) partida.jugador1).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 							// BIEN LAS COMBINACIONES
 						} else {
-							partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+							partida.tablero2.dibujarTablero(partida.tablero2);
 
 							System.out.printf("La máquina ha perdido, la combinación era: ");
 							partida.jugador1.dibujarCombinacionSecreta();
@@ -181,7 +226,7 @@ public class Partida {
 					partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 							partida.jugador2.generarPista(partida.jugador1));
 
-					partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+					partida.tablero1.dibujarTablero(partida.tablero1);
 
 					System.out.printf("Has acertado la combinación: ");
 					fin1 = false;
@@ -194,13 +239,13 @@ public class Partida {
 
 					if (partida.jugador1.getIntentos() != 0) {
 
-						partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+						partida.tablero1.dibujarTablero(partida.tablero1);
 
 						System.out.printf("Has fallado, te quedan %d intentos\n\n", partida.jugador1.getIntentos());
 						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 						// BIEN LAS COMBINACIONES
 					} else {
-						partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+						partida.tablero1.dibujarTablero(partida.tablero1);
 
 						System.out.printf("Has perdido, la combinación era: ");
 						((Maquina) partida.jugador2).dibujarCombinacionSecreta();
@@ -219,7 +264,7 @@ public class Partida {
 
 					partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),partida.jugador1.generarPista(partida.jugador2));
 
-					partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+					partida.tablero2.dibujarTablero(partida.tablero2);
 
 					System.out.printf("La máquina ha acertado la combinación: ");
 					fin2 = false;
@@ -232,14 +277,14 @@ public class Partida {
 
 					if (partida.jugador2.getIntentos() != 0) {
 
-						partida.tablero1.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+						partida.tablero1.dibujarTablero(partida.tablero2);
 
 						System.out.printf("La máquina ha fallado, le quedan %d intentos\n\n",
 								partida.jugador2.getIntentos());
 						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 						// BIEN LAS COMBINACIONES
 					} else {
-						partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+						partida.tablero2.dibujarTablero(partida.tablero2);
 
 						System.out.printf("La máquina ha perdido, la combinación era: ");
 						partida.jugador1.dibujarCombinacionSecreta();
@@ -287,7 +332,7 @@ public class Partida {
 				
 				partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),partida.jugador2.generarPista(partida.jugador1));
 
-				partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
+				partida.tablero1.dibujarTablero(partida.tablero1);
 
 				
 				
@@ -313,7 +358,7 @@ public class Partida {
 				
 				partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),partida.jugador1.generarPista(partida.jugador2));
 
-				partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
+				partida.tablero2.dibujarTablero(partida.tablero2);
 				
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin2 = false;

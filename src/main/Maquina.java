@@ -3,12 +3,29 @@ package main;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+/**
+ * Esta clase tiene los mismos atributos que su padre0, representa a la máquina (IA) que juega
+ * 
+ * @author Ismael Raqi Picardo
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Maquina extends Jugador {
 
+	/**
+	 * Construye un nuevo objeto Maquina que contiene llama al método de su padre
+	 * @param modo  El modo que determinará la longitud del array
+	 */
 	protected Maquina(Modos modo) {
 		super(modo);
 	}
 
+	/**
+	 * Genera un objeto Combinacion totalmente aleatorio, depende del modo si se repetirán colores y la longitud de la combinación, es implementada de su
+	 * clase padre
+	 * @return 		Combinacion			Objeto de clase Combinacion que será la combinación secreta de la máquina
+	 */
 	@Override
 	protected Combinacion generarCombinacion() {
 
@@ -115,18 +132,30 @@ public class Maquina extends Jugador {
 		return comb;
 	}
 
+	/**
+	 * Muestra por pantalla la combinación secreta de la máquina que lo ejecute, es implementada de su
+	 * clase padre
+	 */
 	protected void dibujarCombinacionSecreta() {
 		for (int i = 0; i < getModo().getCasillas(); i++) {
 			System.out.printf("%s ", getCombSecreta().getCombinacion()[i].getColor());
 		}
 	}
 
+	/**
+	 * Muestra por pantalla la combinación respuesta de la máquina que lo ejecute
+	 */
 	protected void dibujarCombinacionRespuesta() {
 		for (int i = 0; i < getModo().getCasillas(); i++) {
 			System.out.printf("%s ", getCombRespuesta().getCombinacion()[i].getColor());
 		}
 	}
 
+	/**
+	 * Inteligencia artificial que sigue una estrategia para hallar la combinación secreta del contrincante a partir de las pistas del tablero
+	 * @param		tablero		El tablero que se evaluará
+	 * @return 		Combinacion		Combinación de colores para hallar el secreto
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected  Combinacion IA(Tablero tablero) {
 		Combinacion comb = new Combinacion(getModo());
@@ -423,6 +452,10 @@ public class Maquina extends Jugador {
 		return comb;
 	}
 
+	/**
+	 * Método de funcionamiento interno que sirve para generar un color aleatorio, dependiendo del modo de juego podrán ser 8 colores o 10 colores
+	 * @return 		String		Cadena de texto que contendrá el estático del color
+	 */
 	private String generarColorRandom() {
 		int numero = (int) (Math.random() * getModo().getColores()) + 1;
 		String a = "";
@@ -463,6 +496,10 @@ public class Maquina extends Jugador {
 		return a;
 	}
 
+	/**
+	 * Método de funcionamiento interno que sirve para generar un número aleatorio, dependiendo del modo de juego podrá ser de 1 a 4, 5 o 8
+	 * @return 		int		Número aleatorio para acceder a una posición de la combinación aleatoria
+	 */
 	private int generarPosicionRandom() {
 		return (int) (Math.random() * getModo().getCasillas()) + 1;
 	}

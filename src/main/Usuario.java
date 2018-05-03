@@ -1,19 +1,36 @@
 package main;
 
 import java.util.ArrayList;
-
 import main.Teclado.enummaximominimo;
 
+/**
+ * Esta clase tiene los mismos atributos que su padre, representa al usuario humano que juega
+ * 
+ * @author Ismael Raqi Picardo
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class Usuario extends Jugador {
 
+	/**
+	 * Construye un nuevo objeto Usuario que contiene llama al método de su padre
+	 * @param modo  El modo que determinará la longitud del array
+	 */
 	protected Usuario(Modos modo) {
 		super(modo);
 	}
 
-	protected Combinacion ponerPinchitos(Combinacion pinchosBuenos) {
+	/**
+	 * Genera un objeto Combinacion con la pista de su combinación secreta al contrincante, se pedirá la pista al usuario hasta que dé la pista correcta
+	 * @param		pistaCorrecta		Objeto Combinacion generada por el método {@link #generarPista(Jugador)} para comprobar 
+	 * si el usuario da la pista correcta
+	 * @return 		Combinacion			Devuelve un objeto Combinacion con la pista al contrincante
+	 */
+	protected Combinacion elegirPista(Combinacion pistaCorrecta) {
 		Combinacion pinchos = new Combinacion(getModo());
 		int num1, num2;
-		boolean bandera = false;;
+		boolean bandera = false;
 
 		do {
 			bandera = false;
@@ -37,7 +54,7 @@ public class Usuario extends Jugador {
 			}
 			
 			for (int i=0;i< getModo().getCasillas();i++) {
-				if (!pinchos.getCombinacion()[i].equals(pinchosBuenos.getCombinacion()[i])) {
+				if (!pinchos.getCombinacion()[i].equals(pistaCorrecta.getCombinacion()[i])) {
 					bandera = true;
 				}
 			}
@@ -49,6 +66,10 @@ public class Usuario extends Jugador {
 		return pinchos;
 	}
 
+	/**
+	 * Genera un objeto Combinacion que será el intento del usuario hacia la combinación secreta del contrincante, se pueden repetir colores
+	 * @return 		Combinacion			Devuelve un objeto Combinacion que será la combRespuesta del usuario, pudiendo haber colores repetidos
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Combinacion elegirCombinacionConRepet() {
 		Combinacion combSecreta = new Combinacion(getModo());
@@ -266,6 +287,10 @@ public class Usuario extends Jugador {
 		return combSecreta;
 	}
 
+	/**
+	 * Genera un objeto Combinacion que será la combinación secreta del usuario, no se pueden repetir colores
+	 * @return 		Combinacion			Devuelve un objeto Combinacion que será la combSecreta del usuario, no pudiendo haber colores repetidos
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Combinacion elegirCombinacionSinRepet() {
 		Combinacion combSecreta = new Combinacion(getModo());
@@ -502,12 +527,21 @@ public class Usuario extends Jugador {
 		return combSecreta;
 	}
 
+	/**
+	 * Método que llama al método {@link #elegirCombinacionSinRepet()} para elegir una combinación , es implementada de su
+	 * clase padre
+	 * @return 		Combinacion			Objeto de clase Combinacion que será la combinación secreta del usuario
+	 */
 	@Override
 	protected Combinacion generarCombinacion() {
 
 		return elegirCombinacionSinRepet();
 	}
 
+	/**
+	 * Muestra por pantalla la combinación secreta de la máquina que lo ejecute, es implementada de su
+	 * clase padre 
+	 */
 	protected void dibujarCombinacionSecreta() {
 		for (int i = 0; i < getModo().getCasillas(); i++) {
 			System.out.printf("%s ", getCombSecreta().getCombinacion()[i].getColor());

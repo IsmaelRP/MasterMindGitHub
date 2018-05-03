@@ -2,13 +2,37 @@ package main;
 
 import java.util.ArrayList;
 
+/**
+ * Esta clase abstracta representa a los jugadores de la partida (usuarios y máquinas), almacena 2 objetos Combinacion, un objeto enum y un número int
+ * 
+ * @author Ismael Raqi Picardo
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public abstract class Jugador {
 
+	/**
+	 * Almacena un objeto Combinacion que representa la combinación secreta del jugador
+	 */
 	private Combinacion combSecreta;
+	/**
+	 * Almacena un objeto Combinacion que representa la combinación con la que va a intentar adivinar la del rival
+	 */
 	private Combinacion combRespuesta;
+	/**
+	 * Almacena un enum Modos indicando que tipo de partida se está jugando
+	 */
 	private Modos modo;
+	/**
+	 * Almacena un número int que lleva la cuenta de los intentos del jugador
+	 */
 	private int intentos;
 
+	/**
+	 * Construye un nuevo objeto Jugador que contiene los 2 objetos Combinacion, un enum y un número
+	 * @param modo  El modo que determinará los intentos del jugador
+	 */
 	protected Jugador(Modos modo) {
 		if (modo == Modos.FACIL) {
 			intentos = 10;
@@ -22,34 +46,68 @@ public abstract class Jugador {
 		}
 	}
 	
+	/**
+	 * Método get del atributo modo
+	 * @return		Modos		Modo del enum Modos
+	 */
 	protected Modos getModo() {
 		return modo;
 	}
 	
+	/**
+	 * Método get del atributo combSecreta
+	 * @return		combSecreta	Objeto de la clase Combinacion que será el atributo combSecreta
+	 */
 	protected Combinacion getCombSecreta() {
 		return combSecreta;
 	}
 	
+	/**
+	 * Método set del atributo combSecreta
+	 * @param		combSecreta		Objeto de la clase Combinacion que será el atributo combSecreta
+	 */
 	protected void setCombSecreta(Combinacion combSecreta) {
 		this.combSecreta = combSecreta;
 	}
 	
+	/**
+	 * Método get del atributo combRespuesta
+	 * @return		combRespuesta		Objeto de la clase Combinacion que será el atributo combRespuesta
+	 */
 	protected Combinacion getCombRespuesta() {
 		return combRespuesta;
 	}
 	
+	/**
+	 * Método set del atributo combRespuesta
+	 * @param		combRespuesta	Objeto de la clase Combinacion que será el atributo combRespuesta
+	 */
 	protected void setCombRespuesta(Combinacion combRespuesta) {
 		this.combRespuesta = combRespuesta;
 	}
 	
+	/**
+	 * Método get del atributo intentos
+	 * @return		intentos		Número que representan los intentos restantes (modo fácil y medio) y el intento actual (modo difícil)
+	 */
 	protected int getIntentos() {
 		return intentos;
 	}
 	
+	/**
+	 * Método set del atributo intentos
+	 * @param		intentos		Número que representan los intentos restantes (modo fácil y medio) y el intento actual (modo difícil)
+	 */
 	protected void setIntentos(int intentos) {
 		this.intentos = intentos;
 	}
-
+	
+	/**
+	 * Compara el atributo combSecreta con el combRespuesta del contrincante
+	 * @param 		contrincante	La combRespuesta del contrincante
+	 * @return 		true: si son iguales. 
+	 * 				false: si son diferentes.
+	 */
 	protected boolean comprobarCombinacion(Combinacion contrincante) {
 		boolean igual = true;
 
@@ -58,14 +116,25 @@ public abstract class Jugador {
 				igual = false;
 			}
 		}
-		// LLAMAR AQUI AL METODO "PISTA" DE MÁQUINA
 		return igual;
 	}
 
+	/**
+	 * Método abstracto que devuelve un objeto Combinacion
+	 * @return		Combinacion		Objeto de la clase Combinacion que luego será el atributo combSecreta
+	 */
 	abstract Combinacion generarCombinacion();
 
+	/**
+	 * Método abstracto que dibuja en consola un objeto Combinacion
+	 */
 	abstract void dibujarCombinacionSecreta();
 
+	/**
+	 * Devuelve un objeto Combinacion con la pista resultante de la combSecreta y la CombRespuesta del contrincante
+	 * @param		contrincante	El objeto Jugador, que es el contrincante de el Jugador que llama al método
+	 * @return		pista		Un objeto Combinacion con la pista
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Combinacion generarPista(Jugador contrincante) {
 
