@@ -4,10 +4,18 @@ import java.util.Arrays;
 
 public class Combinacion {
 	
-	Casilla combinacion[];
+	private Casilla combinacion[];
 	
-	Combinacion(Modos modo){
-		combinacion = new Casilla[modo.casillas];
+	protected Combinacion(Modos modo){
+		combinacion = new Casilla[modo.getCasillas()];
+	}
+	
+	protected Casilla[] getCombinacion() {
+		return combinacion;
+	}
+	
+	protected void setCombinacion(Casilla combinacion[]) {
+		this.combinacion = combinacion;
 	}
 
 	@Override

@@ -2,16 +2,22 @@ package main;
 
 public enum Modos {
 	
-	FACIL (4, 8, false), MEDIO (5, 8, false), DIFICIL (8, 10, true), INSTRUCCIONES(0,0,false);
+	FACIL (4, 8), MEDIO (5, 8), DIFICIL (8, 10), INSTRUCCIONES(0,0);
 	
-	int casillas;
-	int colores;
-	boolean repeticion_colores;
+	private int casillas;
+	private int colores;
 	
-	Modos(int casillas, int colores, boolean repeticion){
+	protected int getCasillas(){
+		return casillas;
+	}
+	
+	protected int getColores(){
+		return colores;
+	}
+	
+	Modos(int casillas, int colores){
 		this.casillas = casillas;
 		this.colores = colores;
-		repeticion_colores = repeticion;
 	}
 
 }

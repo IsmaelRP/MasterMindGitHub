@@ -1,9 +1,17 @@
 package main;
 
 public class Casilla {
-	String color;
+	private String color;
 	
-	Casilla(String color){
+	protected Casilla(String color){
+		this.color = color;
+	}
+	
+	protected String getColor(){
+		return color;
+	}
+	
+	protected void setColor(String color){
 		this.color = color;
 	}
 

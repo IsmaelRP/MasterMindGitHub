@@ -12,11 +12,11 @@ public class Partida {
 	private Jugador jugador2;
 	private Tablero tablero2;
 
-	Partida() {
+	protected Partida() {
 
 	}
 
-	Partida(Modos modo) {
+	protected Partida(Modos modo) {
 		this.modo = modo;
 		if (modo == Modos.FACIL) {
 			jugador1 = new Usuario(modo);
@@ -40,7 +40,7 @@ public class Partida {
 		}
 	}
 
-	void inicioPartida() {
+	protected void inicioPartida() {
 		int opcion;
 		Modos modo;
 		Partida partida;
@@ -73,23 +73,23 @@ public class Partida {
 
 			if (opcion == 1) {
 
-				partida.jugador2.combSecreta = partida.jugador2.generarCombinacion(); // Aqui la máquina (jugador2) se
+				partida.jugador2.setCombSecreta(partida.jugador2.generarCombinacion()); // Aqui la máquina (jugador2) se
 																						// genera en su atributo la
-				// combinación
-				// secreta que deberá de adivinar el usuario (jugador1)
+																						// combinación
+																						// secreta que deberá de adivinar el usuario (jugador1)
 			} else {
 				System.out.printf("\nElija su combinación secreta jugador 1\n");
-				partida.jugador1.combSecreta = ((Usuario) partida.jugador1).elegirCombinacionSinRepet();
+				partida.jugador1.setCombSecreta(((Usuario) partida.jugador1).elegirCombinacionSinRepet());
 			}
 			do {
 				if (opcion == 1) { // APARTADO DEL USUARIO EN EL MODO FACIL
 
 					System.out.printf("\n\nElija su intento jugador 1\n");
-					partida.jugador1.combRespuesta = ((Usuario) partida.jugador1).elegirCombinacionConRepet();
+					partida.jugador1.setCombRespuesta(((Usuario) partida.jugador1).elegirCombinacionConRepet());
 
-					if (partida.jugador2.comprobarCombinacion(partida.jugador1.combRespuesta)) {
+					if (partida.jugador2.comprobarCombinacion(partida.jugador1.getCombRespuesta())) {
 
-						partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,
+						partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 								partida.jugador2.generarPista(partida.jugador1));
 
 						partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
@@ -99,15 +99,15 @@ public class Partida {
 						((Maquina) partida.jugador2).dibujarCombinacionSecreta();
 						System.out.printf("\n\n");
 					} else {
-						partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,
+						partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 								partida.jugador2.generarPista(partida.jugador1));
-						partida.jugador1.intentos--;
+						partida.jugador1.setIntentos(partida.jugador1.getIntentos() -1);
 
-						if (partida.jugador1.intentos != 0) {
+						if (partida.jugador1.getIntentos() != 0) {
 
 							partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
 
-							System.out.printf("Has fallado, te quedan %d intentos", partida.jugador1.intentos);
+							System.out.printf("Has fallado, te quedan %d intentos", partida.jugador1.getIntentos());
 							// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 							// BIEN LAS COMBINACIONES
 						} else {
@@ -122,15 +122,15 @@ public class Partida {
 					System.out.printf("\n\nVa a jugar la máquina\n");
 					System.out.printf("Presione ENTER para el turno de la máquina\n");
 					Teclado.pedirCadena();
-					partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
+					partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));
 					
 					System.out.printf("El actual intento de la máquina es:  ");
 					((Maquina) partida.jugador2).dibujarCombinacionRespuesta();
 					((Usuario) partida.jugador1).ponerPinchitos(partida.jugador1.generarPista(partida.jugador2));
 
-					if (partida.jugador1.comprobarCombinacion(partida.jugador2.combRespuesta)) {
+					if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombRespuesta())) {
 
-						partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,
+						partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),
 								jugador1.generarPista(partida.jugador2));
 
 						partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
@@ -140,15 +140,15 @@ public class Partida {
 						partida.jugador1.dibujarCombinacionSecreta();
 						System.out.printf("\n\n");
 					} else {
-						partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,
+						partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),
 								partida.jugador1.generarPista(partida.jugador2));
-						partida.jugador2.intentos--;
+						partida.jugador2.setIntentos(partida.jugador2.getIntentos() -1);
 
-						if (partida.jugador2.intentos != 0) {
+						if (partida.jugador2.getIntentos() != 0) {
 
 							partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
 
-							System.out.printf("La máquina fallado, le quedan %d intentos", partida.jugador2.intentos);
+							System.out.printf("La máquina fallado, le quedan %d intentos", partida.jugador2.getIntentos());
 							// ((Maquina) partida.jugador1).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 							// BIEN LAS COMBINACIONES
 						} else {
@@ -161,24 +161,24 @@ public class Partida {
 					}
 
 				}
-			} while ((partida.jugador1.intentos != 0 && partida.jugador2.intentos != 0) && fin);
+			} while ((partida.jugador1.getIntentos() != 0 && partida.jugador2.getIntentos() != 0) && fin);
 
 		} else if (modo == Modos.MEDIO) {
 
-			partida.jugador2.combSecreta = partida.jugador2.generarCombinacion();
+			partida.jugador2.setCombSecreta(partida.jugador2.generarCombinacion());
 
 			System.out.printf("\nVamos a generar tu combinación secreta jugador 1 (no se pueden repetir colores)\n");
-			partida.jugador1.combSecreta = partida.jugador1.generarCombinacion();
+			partida.jugador1.setCombSecreta(partida.jugador1.generarCombinacion());
 
 			do {
 				// AQUI EMPIEZA JUGANDO EL USUARIO
 				System.out.printf("\n\nElija su intento jugador 1\n");
 
-				partida.jugador1.combRespuesta = ((Usuario) partida.jugador1).elegirCombinacionConRepet();
+				partida.jugador1.setCombRespuesta(((Usuario) partida.jugador1).elegirCombinacionConRepet());
 
-				if (partida.jugador2.comprobarCombinacion(partida.jugador1.combRespuesta)) {
+				if (partida.jugador2.comprobarCombinacion(partida.jugador1.getCombRespuesta())) {
 
-					partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,
+					partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 							partida.jugador2.generarPista(partida.jugador1));
 
 					partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
@@ -188,15 +188,15 @@ public class Partida {
 					((Maquina) partida.jugador2).dibujarCombinacionSecreta();
 					System.out.printf("\n\n");
 				} else {
-					partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,
+					partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),
 							partida.jugador2.generarPista(partida.jugador1));
-					partida.jugador1.intentos--;
+					partida.jugador1.setIntentos(partida.jugador1.getIntentos() -1);
 
-					if (partida.jugador1.intentos != 0) {
+					if (partida.jugador1.getIntentos() != 0) {
 
 						partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
 
-						System.out.printf("Has fallado, te quedan %d intentos\n\n", partida.jugador1.intentos);
+						System.out.printf("Has fallado, te quedan %d intentos\n\n", partida.jugador1.getIntentos());
 						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 						// BIEN LAS COMBINACIONES
 					} else {
@@ -213,11 +213,11 @@ public class Partida {
 				// AL PRINCIPIO SERA ALEATORIO PORQUE NO HABRÁ PISTA
 				//System.out.printf("Presione ENTER para el turno de la máquina\n\n");
 				//Teclado.pedirCadena();
-				partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
+				partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));
 
-				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combRespuesta)) {
+				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombRespuesta())) {
 
-					partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,partida.jugador1.generarPista(partida.jugador2));
+					partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),partida.jugador1.generarPista(partida.jugador2));
 
 					partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
 
@@ -226,16 +226,16 @@ public class Partida {
 					partida.jugador1.dibujarCombinacionSecreta();
 					System.out.printf("\n\n");
 				} else {
-					partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,
+					partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),
 							partida.jugador1.generarPista(partida.jugador2));
-					partida.jugador2.intentos--;
+					partida.jugador2.setIntentos(partida.jugador2.getIntentos() -1);
 
-					if (partida.jugador2.intentos != 0) {
+					if (partida.jugador2.getIntentos() != 0) {
 
 						partida.tablero1.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
 
 						System.out.printf("La máquina ha fallado, le quedan %d intentos\n\n",
-								partida.jugador2.intentos);
+								partida.jugador2.getIntentos());
 						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
 						// BIEN LAS COMBINACIONES
 					} else {
@@ -255,26 +255,26 @@ public class Partida {
 					System.out.println("\nHa ganado la máquina");
 				}
 
-			} while (partida.jugador1.intentos != 0 && fin1 || fin2); // FALTA PONER 2 FIN, UNO PARA CADA JUGADOR PARA
+			} while (partida.jugador1.getIntentos() != 0 && fin1 || fin2); // FALTA PONER 2 FIN, UNO PARA CADA JUGADOR PARA
 																		// QUE ACABE
 			// CUANDO ALGUNO DE LOS DOS GANE
 
 		} else if (modo == Modos.DIFICIL) {
 			
-			partida.jugador1.combSecreta = partida.jugador1.generarCombinacion();
+			partida.jugador1.setCombSecreta(partida.jugador1.generarCombinacion());
 			System.out.printf("La combinación secreta de la máquina 1 es:\n");
 			partida.jugador1.dibujarCombinacionSecreta();
 			
 			System.out.printf("\n\n");
 			
-			partida.jugador2.combSecreta = partida.jugador2.generarCombinacion();
+			partida.jugador2.setCombSecreta(partida.jugador2.generarCombinacion());
 			System.out.printf("La combinación secreta de la máquina 2 es:\n");
 			partida.jugador2.dibujarCombinacionSecreta();
 			
 			
 			do {
 				//	AQUI JUEGA MÁQUINA 1
-				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.intentos+1);
+				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.getIntentos()+1);
 				//Teclado.pedirCadena();
 				//if (partida.jugador1.intentos >= 8) {
 				//	Teclado.pedirCadena();
@@ -283,43 +283,43 @@ public class Partida {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 				}
-				partida.jugador1.combRespuesta = ((Maquina) partida.jugador1).IA(partida.tablero1);
+				partida.jugador1.setCombRespuesta(((Maquina) partida.jugador1).IA(partida.tablero1));
 				
-				partida.tablero1.añadirAlTablero(partida.jugador1.combRespuesta,partida.jugador2.generarPista(partida.jugador1));
+				partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),partida.jugador2.generarPista(partida.jugador1));
 
 				partida.tablero1.dibujarTablero(partida.tablero1, partida.jugador1, partida.jugador2);
 
 				
 				
-				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combSecreta)) {
+				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin1 = false;
 					System.out.printf("La máquina 1 ha acertado la combinación");
 				}else {
-					partida.jugador1.intentos ++;
+					partida.jugador1.setIntentos(partida.jugador1.getIntentos() +1);
 				}
 				
 				
 				//	AQUI JUEGA MÁQUINA 2
-				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.intentos+1);
+				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.getIntentos()+1);
 				//Teclado.pedirCadena();
-				if (partida.jugador1.intentos >= 10) {
+				if (partida.jugador1.getIntentos() >= 10) {
 					Teclado.pedirCadena();
 				}
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 				}
-				partida.jugador2.combRespuesta = ((Maquina) partida.jugador2).IA(partida.tablero2);
+				partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));
 				
-				partida.tablero2.añadirAlTablero(partida.jugador2.combRespuesta,partida.jugador1.generarPista(partida.jugador2));
+				partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),partida.jugador1.generarPista(partida.jugador2));
 
 				partida.tablero2.dibujarTablero(partida.tablero2, partida.jugador2, partida.jugador1);
 				
-				if (partida.jugador1.comprobarCombinacion(partida.jugador2.combSecreta)) {
+				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin2 = false;
 					System.out.printf("La máquina 2 ha acertado la combinación");
 				}else {
-					partida.jugador2.intentos ++;
+					partida.jugador2.setIntentos(partida.jugador2.getIntentos() +1);
 				}
 				
 				
@@ -329,8 +329,6 @@ public class Partida {
 					System.out.printf("Ha ganado la máquina 1");
 				}else if (!fin2) {
 					System.out.printf("Ha ganado la máquina 2");
-				}else {
-					System.out.printf("Llevan %d intentos\n\n",partida.jugador1.intentos);
 				}
 				
 			}while(fin1 && fin2);
