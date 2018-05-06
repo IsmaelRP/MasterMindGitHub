@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
- * Esta clase tiene los mismos atributos que su padre0, representa a la máquina (IA) que juega
+ * Esta clase tiene los mismos atributos que su padre0, representa a la máquina
+ * (IA) que juega
  * 
  * @author Ismael Raqi Picardo
  * @version 1.0
@@ -15,16 +16,21 @@ public class Maquina extends Jugador {
 
 	/**
 	 * Construye un nuevo objeto Maquina que contiene llama al método de su padre
-	 * @param modo  El modo que determinará la longitud del array
+	 * 
+	 * @param modo
+	 *            El modo que determinará la longitud del array
 	 */
-	protected Maquina(Modos modo) {
+	public Maquina(Modos modo) {
 		super(modo);
 	}
 
 	/**
-	 * Genera un objeto Combinacion totalmente aleatorio, depende del modo si se repetirán colores y la longitud de la combinación, es implementada de su
+	 * Genera un objeto Combinacion totalmente aleatorio, depende del modo si se
+	 * repetirán colores y la longitud de la combinación, es implementada de su
 	 * clase padre
-	 * @return 		Combinacion			Objeto de clase Combinacion que será la combinación secreta de la máquina
+	 * 
+	 * @return Combinacion Objeto de clase Combinacion que será la combinación
+	 *         secreta de la máquina
 	 */
 	@Override
 	protected Combinacion generarCombinacion() {
@@ -133,8 +139,8 @@ public class Maquina extends Jugador {
 	}
 
 	/**
-	 * Muestra por pantalla la combinación secreta de la máquina que lo ejecute, es implementada de su
-	 * clase padre
+	 * Muestra por pantalla la combinación secreta de la máquina que lo ejecute, es
+	 * implementada de su clase padre
 	 */
 	protected void dibujarCombinacionSecreta() {
 		for (int i = 0; i < getModo().getCasillas(); i++) {
@@ -152,14 +158,16 @@ public class Maquina extends Jugador {
 	}
 
 	/**
-	 * Inteligencia artificial que sigue una estrategia para hallar la combinación secreta del contrincante a partir de las pistas del tablero
-	 * @param		tablero		El tablero que se evaluará
-	 * @return 		Combinacion		Combinación de colores para hallar el secreto
+	 * Inteligencia artificial que sigue una estrategia para hallar la combinación
+	 * secreta del contrincante a partir de las pistas del tablero
+	 * 
+	 * @param tablero
+	 *            El tablero que se evaluará
+	 * @return Combinacion Combinación de colores para hallar el secreto
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected  Combinacion IA(Tablero tablero) {
+	protected Combinacion IA(Tablero tablero) {
 		Combinacion comb = new Combinacion(getModo());
-		Combinacion combFinal = new Combinacion(getModo());
 		int negro = 0;
 		int rojo = 0;
 		int verde = 0;
@@ -172,23 +180,12 @@ public class Maquina extends Jugador {
 		int rosa = 0;
 		String auxRand;
 		boolean fasePrimera = true;
-		boolean bandera = true;
 		int aux = 0;
-		int aux1;
-		int aux2;
-
 		ArrayList lista = new ArrayList<String>();
-
-		boolean faseSegunda = true;
-		boolean noContar = true;
-		int auxContador = 0;
-		int totalColores = 0;
-		String colorNoEsta = "";
-		String colorAux = "";
 
 		if (tablero.getTablero().size() == 0) {
 			auxRand = generarColorRandom();
-			
+
 			for (int o = 0; o < comb.getCombinacion().length; o++) {
 				comb.getCombinacion()[o] = new Casilla(auxRand);
 			}
@@ -200,13 +197,14 @@ public class Maquina extends Jugador {
 				// COLORES SON IGUALES
 				for (int h = 0; h < getModo().getCasillas(); h++) {
 
-					if (tablero.getTablero().get(i).getCombinacion()[0].getColor()!= tablero.getTablero()
-							.get(i).getCombinacion()[h].getColor()) {
+					if (tablero.getTablero().get(i).getCombinacion()[0]
+							.getColor() != tablero.getTablero().get(i).getCombinacion()[h].getColor()) {
 						fasePrimera = false;
 					}
 				}
 				if (fasePrimera) {
-					if (tablero.getTablero().get(i).getCombinacion()[0].getColor().equals(Colores.NEGRO + "  " + Colores.RESET)) {
+					if (tablero.getTablero().get(i).getCombinacion()[0].getColor()
+							.equals(Colores.NEGRO + "  " + Colores.RESET)) {
 						if (tablero.getPista().get(i).getCombinacion()[0].getColor()
 								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
 							for (int u = 0; u < getModo().getCasillas(); u++) {
@@ -343,100 +341,96 @@ public class Maquina extends Jugador {
 
 			}
 
-			if (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro
-					+ rosa == getModo().getCasillas()) {
+			if (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro + rosa == getModo()
+					.getCasillas()) {
 				fasePrimera = false;
-
-				if (negro == 0) {
-					colorNoEsta = Colores.NEGRO + "  " + Colores.RESET;
-				} else if (rojo == 0) {
-					colorNoEsta = Colores.ROJO + "  " + Colores.RESET;
-				} else if (verde == 0) {
-					colorNoEsta = Colores.VERDE + "  " + Colores.RESET;
-				} else if (amarillo == 0) {
-					colorNoEsta = Colores.AMARILLO + "  " + Colores.RESET;
-				} else if (azul == 0) {
-					colorNoEsta = Colores.AZUL + "  " + Colores.RESET;
-				} else if (morado == 0) {
-					colorNoEsta = Colores.MORADO + "  " + Colores.RESET;
-				} else if (celeste == 0) {
-					colorNoEsta = Colores.CELESTE + "  " + Colores.RESET;
-				} else if (blanco == 0) {
-					colorNoEsta = Colores.BLANCO + "  " + Colores.RESET;
-				} else if (verdeclaro == 0) {
-					colorNoEsta = Colores.VERDECLARO + "  " + Colores.RESET;
-				} else if (rosa == 0) {
-					colorNoEsta = Colores.ROSA + "  " + Colores.RESET;
-				}
 			}
 
 			if (!fasePrimera) {
-
-				if (aux == tablero.getTablero().size()) {
-
-					for (int w = 0; w < getModo().getCasillas(); w++) {
-						if (tablero.getPista().get(w).getCombinacion()[0].getColor()
-								.equals(Colores.NEGRO + "  " + Colores.RESET)) {
-							if (!tablero.getTablero().get(w).getCombinacion()[0].getColor().equals(colorNoEsta)) {
-								colorAux = tablero.getTablero().get(w).getCombinacion()[0].getColor();
-								w = getModo().getCasillas();
-							} else {
-								colorAux = tablero.getTablero().get(w).getCombinacion()[w + 1].getColor();
-								w = getModo().getCasillas();
-							}
-						}
+				do {
+					if (negro > 0) {
+						negro --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
+					}else if(rojo > 0) {
+						rojo --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+					}else if(verde > 0) {
+						verde --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.VERDE + "  " + Colores.RESET);
+					}else if(amarillo > 0) {
+						amarillo --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.AMARILLO + "  " + Colores.RESET);
+					}else if(azul > 0) {
+						azul --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.AZUL + "  " + Colores.RESET);
+					}else if(morado > 0) {
+						morado --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.MORADO + "  " + Colores.RESET);
+					}else if(celeste > 0) {
+						celeste --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.CELESTE + "  " + Colores.RESET);
+					}else if(blanco > 0) {
+						blanco --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
+					}else if(verdeclaro > 0) {
+						verdeclaro --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.VERDECLARO + "  " + Colores.RESET);
+					}else if(rosa > 0) {
+						rosa --;
+						
+						do {
+							aux = generarPosicionRandom()-1;
+						}while(comb.getCombinacion()[aux] != null);
+						
+						comb.getCombinacion()[aux] = new Casilla(Colores.ROSA + "  " + Colores.RESET);
 					}
-
-					comb.getCombinacion()[generarPosicionRandom()-1] = new Casilla(colorAux);
-					
-					for (int s = 0; s < getModo().getCasillas(); s++) {
-						if (comb.getCombinacion()[s] == null) {
-							comb.getCombinacion()[s] = new Casilla(colorNoEsta);
-						}
-					}
-				} else {
-
-					for (; aux < tablero.getTablero().size(); aux++) {
-						// lista = new ArrayList<String>();
-
-						// lista.add(tablero.getPista().get(aux).combinacion[0].color);
-						faseSegunda = true;
-						for (int n = 0; n < getModo().getCasillas(); n++) {
-							if (combFinal.getCombinacion()[n] == null) {
-								faseSegunda = false;
-							}
-						}
-
-						if (!faseSegunda) { // AQUI ENTRA SI TODAVIA NO SE HA RESUELTO TODAS LAS POSICIONES
-
-							if (tablero.getPista().get(aux).getCombinacion()[0].getColor()
-									.equals(Colores.NEGRO + "  " + Colores.RESET)) {
-								for (int m = 0; m < getModo().getCasillas(); m++) {
-									if (!tablero.getTablero().get(aux).getCombinacion()[m].getColor().equals(colorNoEsta)) {
-										combFinal.getCombinacion()[m].setColor(tablero.getTablero()
-												.get(aux).getCombinacion()[m].getColor());
-									}
-								}
-							} else {
-								for (int m = 0; m < getModo().getCasillas(); m++) {
-									if (!tablero.getTablero().get(aux).getCombinacion()[m].getColor().equals(colorNoEsta)) {
-										comb.getCombinacion()[m] = new Casilla(tablero.getTablero().get(aux).getCombinacion()[m].getColor());
-									}
-								}
-
-								for (int h = 0; h < getModo().getCasillas(); h++) {
-									if (comb.getCombinacion()[h] == null) {
-										comb.getCombinacion()[h] = new Casilla(colorNoEsta);
-									}
-								}
-							}
-
-						} else {
-							comb = combFinal;
-						}
-
-					}
-				}
+				}while (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro + rosa != 0);
+				
 			} else {
 				do {
 					auxRand = generarColorRandom();
@@ -453,8 +447,10 @@ public class Maquina extends Jugador {
 	}
 
 	/**
-	 * Método de funcionamiento interno que sirve para generar un color aleatorio, dependiendo del modo de juego podrán ser 8 colores o 10 colores
-	 * @return 		String		Cadena de texto que contendrá el estático del color
+	 * Método de funcionamiento interno que sirve para generar un color aleatorio,
+	 * dependiendo del modo de juego podrán ser 8 colores o 10 colores
+	 * 
+	 * @return String Cadena de texto que contendrá el estático del color
 	 */
 	private String generarColorRandom() {
 		int numero = (int) (Math.random() * getModo().getColores()) + 1;
@@ -497,8 +493,11 @@ public class Maquina extends Jugador {
 	}
 
 	/**
-	 * Método de funcionamiento interno que sirve para generar un número aleatorio, dependiendo del modo de juego podrá ser de 1 a 4, 5 o 8
-	 * @return 		int		Número aleatorio para acceder a una posición de la combinación aleatoria
+	 * Método de funcionamiento interno que sirve para generar un número aleatorio,
+	 * dependiendo del modo de juego podrá ser de 1 a 4, 5 o 8
+	 * 
+	 * @return int Número aleatorio para acceder a una posición de la combinación
+	 *         aleatoria
 	 */
 	private int generarPosicionRandom() {
 		return (int) (Math.random() * getModo().getCasillas()) + 1;

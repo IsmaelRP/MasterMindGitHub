@@ -15,13 +15,13 @@ public class Combinacion {
 	/**
 	 * Almacena un array de objetos Casilla
 	 */
-	private Casilla combinacion[];
+	public Casilla combinacion[];
 	
 	/**
 	 * Construye un nuevo objeto Combinacion que contiene el especificado array de objetos Casilla
 	 * @param modo  El modo que determinará la longitud del array
 	 */
-	protected Combinacion(Modos modo){
+	public Combinacion(Modos modo){
 		combinacion = new Casilla[modo.getCasillas()];
 	}
 	
@@ -29,7 +29,7 @@ public class Combinacion {
 	 * Método get del atributo combinacion
 	 * @return		combinacion		Objeto de la clase Combinacion que será la combinación del jugador
 	 */
-	protected Casilla[] getCombinacion() {
+	public Casilla[] getCombinacion() {
 		return combinacion;
 	}
 	
@@ -37,7 +37,7 @@ public class Combinacion {
 	 * Método set del atributo combinacion
 	 * @param		combinacion		Objeto de la clase Combinacion
 	 */
-	protected void setCombinacion(Casilla combinacion[]) {
+	public void setCombinacion(Casilla combinacion[]) {
 		this.combinacion = combinacion;
 	}
 

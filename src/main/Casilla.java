@@ -18,7 +18,7 @@ public class Casilla {
 	 * Construye un nuevo objeto Casilla con un atributo String a partir del String especificado
 	 * @param color  El String a partir del cual se crea el atributo color
 	 */
-	protected Casilla(String color){
+	public Casilla(String color){
 		this.color = color;
 	}
 	
@@ -26,7 +26,7 @@ public class Casilla {
 	 * Método get del atributo color
 	 * @return		color		Es un color
 	 */
-	protected String getColor(){
+	public String getColor(){
 		return color;
 	}
 	

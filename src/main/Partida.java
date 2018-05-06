@@ -118,10 +118,7 @@ public class Partida {
 
 			if (opcion == 1) {
 
-				partida.jugador2.setCombSecreta(partida.jugador2.generarCombinacion()); // Aqui la máquina (jugador2) se
-																						// genera en su atributo la
-																						// combinación
-																						// secreta que deberá de adivinar el usuario (jugador1)
+				partida.jugador2.setCombSecreta(partida.jugador2.generarCombinacion()); 
 			} else {
 				System.out.printf("\nElija su combinación secreta jugador 1\n");
 				partida.jugador1.setCombSecreta(((Usuario) partida.jugador1).elegirCombinacionSinRepet());
@@ -153,8 +150,6 @@ public class Partida {
 							partida.tablero1.dibujarTablero(partida.tablero1);
 
 							System.out.printf("Has fallado, te quedan %d intentos", partida.jugador1.getIntentos());
-							// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
-							// BIEN LAS COMBINACIONES
 						} else {
 							partida.tablero1.dibujarTablero(partida.tablero1);
 
@@ -194,8 +189,7 @@ public class Partida {
 							partida.tablero2.dibujarTablero(partida.tablero2);
 
 							System.out.printf("La máquina fallado, le quedan %d intentos", partida.jugador2.getIntentos());
-							// ((Maquina) partida.jugador1).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
-							// BIEN LAS COMBINACIONES
+
 						} else {
 							partida.tablero2.dibujarTablero(partida.tablero2);
 
@@ -242,8 +236,7 @@ public class Partida {
 						partida.tablero1.dibujarTablero(partida.tablero1);
 
 						System.out.printf("Has fallado, te quedan %d intentos\n\n", partida.jugador1.getIntentos());
-						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
-						// BIEN LAS COMBINACIONES
+
 					} else {
 						partida.tablero1.dibujarTablero(partida.tablero1);
 
@@ -253,11 +246,6 @@ public class Partida {
 					}
 				}
 
-				// AQUI EMPIEZA JUGANDO LA MÁQUINA
-				// METODO DE LA IA QUE GENERE UNA COMBINACION A PARTIR DE LA PISTA DEL USUARIO
-				// AL PRINCIPIO SERA ALEATORIO PORQUE NO HABRÁ PISTA
-				//System.out.printf("Presione ENTER para el turno de la máquina\n\n");
-				//Teclado.pedirCadena();
 				partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));
 
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombRespuesta())) {
@@ -281,8 +269,6 @@ public class Partida {
 
 						System.out.printf("La máquina ha fallado, le quedan %d intentos\n\n",
 								partida.jugador2.getIntentos());
-						// ((Maquina) partida.jugador2).dibujarCombinacion(); //COMPROBAR SI SE GENERAN
-						// BIEN LAS COMBINACIONES
 					} else {
 						partida.tablero2.dibujarTablero(partida.tablero2);
 
@@ -300,9 +286,7 @@ public class Partida {
 					System.out.println("\nHa ganado la máquina");
 				}
 
-			} while (partida.jugador1.getIntentos() != 0 && fin1 || fin2); // FALTA PONER 2 FIN, UNO PARA CADA JUGADOR PARA
-																		// QUE ACABE
-			// CUANDO ALGUNO DE LOS DOS GANE
+			} while (partida.jugador1.getIntentos() != 0 && fin1 || fin2); 
 
 		} else if (modo == Modos.DIFICIL) {
 			
@@ -320,12 +304,8 @@ public class Partida {
 			do {
 				//	AQUI JUEGA MÁQUINA 1
 				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.getIntentos()+1);
-				//Teclado.pedirCadena();
-				//if (partida.jugador1.intentos >= 8) {
-				//	Teclado.pedirCadena();
-				//}
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 				}
 				partida.jugador1.setCombRespuesta(((Maquina) partida.jugador1).IA(partida.tablero1));
@@ -333,8 +313,6 @@ public class Partida {
 				partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),partida.jugador2.generarPista(partida.jugador1));
 
 				partida.tablero1.dibujarTablero(partida.tablero1);
-
-				
 				
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin1 = false;
@@ -346,12 +324,8 @@ public class Partida {
 				
 				//	AQUI JUEGA MÁQUINA 2
 				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.getIntentos()+1);
-				//Teclado.pedirCadena();
-				if (partida.jugador1.getIntentos() >= 10) {
-					Teclado.pedirCadena();
-				}
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 				}
 				partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));

@@ -15,11 +15,11 @@ public abstract class Jugador {
 	/**
 	 * Almacena un objeto Combinacion que representa la combinación secreta del jugador
 	 */
-	private Combinacion combSecreta;
+	public Combinacion combSecreta;
 	/**
 	 * Almacena un objeto Combinacion que representa la combinación con la que va a intentar adivinar la del rival
 	 */
-	private Combinacion combRespuesta;
+	public Combinacion combRespuesta;
 	/**
 	 * Almacena un enum Modos indicando que tipo de partida se está jugando
 	 */
@@ -136,7 +136,7 @@ public abstract class Jugador {
 	 * @return		pista		Un objeto Combinacion con la pista
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected Combinacion generarPista(Jugador contrincante) {
+	public Combinacion generarPista(Jugador contrincante) {
 
 		Casilla[] pintado = new Casilla[modo.getCasillas()];
 		int i = 0, negro = 0, rojo = 0;
@@ -334,6 +334,8 @@ public abstract class Jugador {
 		for (i = 0; i < negro; i++) {
 			respuesta[i] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
 		}
+		rojo += i;
+		
 		for (; i < rojo; i++) {
 			respuesta[i] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
 		}
