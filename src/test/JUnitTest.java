@@ -586,13 +586,16 @@ class JUnitTest {
 		b1.getCombinacion()[1] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
 		b1.getCombinacion()[2] = new Casilla(Colores.VERDE + "  " + Colores.RESET);
 		
+		c1.getCombinacion()[0] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+		c1.getCombinacion()[1] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+		c1.getCombinacion()[2] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
+		c1.getCombinacion()[3] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
+		
 		jugador1.combSecreta = a1;
 		jugador2.combRespuesta = b1;
 		
-	
-	            jugador1.generarPista(jugador2);
-	         
-		
+		Assert.assertEquals(c1, jugador1.generarPista(jugador2));
+	            
 		// *******************************************************************************************************************
 		
 		
