@@ -361,9 +361,15 @@ public class Partida {
 
 	public static void main(String[] args) {
 
-		Partida partida = new Partida();
-
-		partida.inicioPartida();
+		boolean respuesta;
+		do {
+			Partida partida = new Partida();
+			partida.inicioPartida();
+			
+			respuesta = Teclado.pedirBoolean("¿Desea jugar otra partida?", "Sí", "No");
+			System.out.printf("\n\n");
+		}while (respuesta);
+		
 
 	}
 
