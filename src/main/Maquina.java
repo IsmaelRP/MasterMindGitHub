@@ -349,88 +349,88 @@ public class Maquina extends Jugador {
 			if (!fasePrimera) {
 				do {
 					if (negro > 0) {
-						negro --;
-						
+						negro--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
-					}else if(rojo > 0) {
-						rojo --;
-						
+					} else if (rojo > 0) {
+						rojo--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
-					}else if(verde > 0) {
-						verde --;
-						
+					} else if (verde > 0) {
+						verde--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.VERDE + "  " + Colores.RESET);
-					}else if(amarillo > 0) {
-						amarillo --;
-						
+					} else if (amarillo > 0) {
+						amarillo--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.AMARILLO + "  " + Colores.RESET);
-					}else if(azul > 0) {
-						azul --;
-						
+					} else if (azul > 0) {
+						azul--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.AZUL + "  " + Colores.RESET);
-					}else if(morado > 0) {
-						morado --;
-						
+					} else if (morado > 0) {
+						morado--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.MORADO + "  " + Colores.RESET);
-					}else if(celeste > 0) {
-						celeste --;
-						
+					} else if (celeste > 0) {
+						celeste--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.CELESTE + "  " + Colores.RESET);
-					}else if(blanco > 0) {
-						blanco --;
-						
+					} else if (blanco > 0) {
+						blanco--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
-					}else if(verdeclaro > 0) {
-						verdeclaro --;
-						
+					} else if (verdeclaro > 0) {
+						verdeclaro--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.VERDECLARO + "  " + Colores.RESET);
-					}else if(rosa > 0) {
-						rosa --;
-						
+					} else if (rosa > 0) {
+						rosa--;
+
 						do {
-							aux = generarPosicionRandom()-1;
-						}while(comb.getCombinacion()[aux] != null);
-						
+							aux = generarPosicionRandom() - 1;
+						} while (comb.getCombinacion()[aux] != null);
+
 						comb.getCombinacion()[aux] = new Casilla(Colores.ROSA + "  " + Colores.RESET);
 					}
-				}while (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro + rosa != 0);
-				
+				} while (negro + rojo + verde + amarillo + azul + morado + celeste + blanco + verdeclaro + rosa != 0);
+
 			} else {
 				do {
 					auxRand = generarColorRandom();
@@ -501,6 +501,45 @@ public class Maquina extends Jugador {
 	 */
 	private int generarPosicionRandom() {
 		return (int) (Math.random() * getModo().getCasillas()) + 1;
+	}
+
+	private byte traducirColor(String color) {
+		byte traduccion = 0;
+
+		switch (color) {
+		case Colores.NEGRO + "  " + Colores.RESET:
+			traduccion = 0;
+			break;
+		case Colores.ROJO + "  " + Colores.RESET:
+			traduccion = 1;
+			break;
+		case Colores.VERDE + "  " + Colores.RESET:
+			traduccion = 2;
+			break;
+		case Colores.AMARILLO + "  " + Colores.RESET:
+			traduccion = 3;
+			break;
+		case Colores.AZUL + "  " + Colores.RESET:
+			traduccion = 4;
+			break;
+		case Colores.MORADO + "  " + Colores.RESET:
+			traduccion = 5;
+			break;
+		case Colores.CELESTE + "  " + Colores.RESET:
+			traduccion = 6;
+			break;
+		case Colores.BLANCO + "  " + Colores.RESET:
+			traduccion = 7;
+			break;
+		case Colores.VERDECLARO + "  " + Colores.RESET:
+			traduccion = 8;
+			break;
+		case Colores.ROSA + "  " + Colores.RESET:
+			traduccion = 9;
+			break;
+
+		}
+		return traduccion;
 	}
 
 }
