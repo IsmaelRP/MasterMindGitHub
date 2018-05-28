@@ -503,6 +503,7 @@ public class Maquina extends Jugador {
 		return (int) (Math.random() * getModo().getCasillas()) + 1;
 	}
 
+	@SuppressWarnings("unused")
 	private byte traducirColor(String color) {
 		byte traduccion = 0;
 
@@ -541,5 +542,29 @@ public class Maquina extends Jugador {
 		}
 		return traduccion;
 	}
+	
+	@SuppressWarnings("unused")
+	private Combinacion traducirByte(byte num[]) {
+		Combinacion comb = new Combinacion(Modos.DIFICIL);
+		int i;
+		
+		for (i = 0; i < num[0]; i++) {
+			comb.combinacion[i] = new Casilla(Colores.NEGRO + "  " + Colores.RESET);
+		}
+		
+		while (i < num[0] + num[1]) {
+			comb.combinacion[i] = new Casilla(Colores.ROJO + "  " + Colores.RESET);
+			i++;
+		}
+		
+		for (i = 0; i < Modos.DIFICIL.getCasillas(); i++) {
+			if (comb.combinacion[i] == null) {
+				comb.combinacion[i] = new Casilla(Colores.BLANCO + "  " + Colores.RESET);
+			}
+		}
+		
+		return comb;
+	}
+	
 
 }
