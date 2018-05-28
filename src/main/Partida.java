@@ -304,15 +304,12 @@ public class Partida {
 			do {
 				//	AQUI JUEGA MÁQUINA 1
 				System.out.printf("\n\nIntento %d de la máquina 1\n\nPulse ENTER para continuar",partida.jugador1.getIntentos()+1);
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-				}
+				
 				partida.jugador1.setCombRespuesta(((Maquina) partida.jugador1).IA(partida.tablero1));
 				
 				partida.tablero1.añadirAlTablero(partida.jugador1.getCombRespuesta(),partida.jugador2.generarPista(partida.jugador1));
 
-				partida.tablero1.dibujarTablero(partida.tablero1);
+				//partida.tablero1.dibujarTablero(partida.tablero1);
 				
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin1 = false;
@@ -324,15 +321,12 @@ public class Partida {
 				
 				//	AQUI JUEGA MÁQUINA 2
 				System.out.printf("\n\nIntento %d de la máquina 2\n\nPulse ENTER para continuar",partida.jugador2.getIntentos()+1);
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-				}
+				
 				partida.jugador2.setCombRespuesta(((Maquina) partida.jugador2).IA(partida.tablero2));
 				
 				partida.tablero2.añadirAlTablero(partida.jugador2.getCombRespuesta(),partida.jugador1.generarPista(partida.jugador2));
 
-				partida.tablero2.dibujarTablero(partida.tablero2);
+				//partida.tablero2.dibujarTablero(partida.tablero2);
 				
 				if (partida.jugador1.comprobarCombinacion(partida.jugador2.getCombSecreta())) {
 					fin2 = false;
